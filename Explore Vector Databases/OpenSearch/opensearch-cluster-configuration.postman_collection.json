@@ -1,0 +1,320 @@
+{
+	"info": {
+		"_postman_id": "8c490c2a-2dca-4cd1-9729-3f348383a64d",
+		"name": "opensearch-cluster-configuration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1753122"
+	},
+	"item": [
+		{
+			"name": "Get Cluster Settings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/_cluster/settings",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"_cluster",
+						"settings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set ML Setting",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"persistent\": {\r\n    \"plugins\": {\r\n      \"ml_commons\": {\r\n        \"only_run_on_ml_node\": \"false\",\r\n        \"model_access_control_enabled\": \"true\",\r\n        \"native_memory_threshold\": \"99\"\r\n      }\r\n    }\r\n  },\r\n  \"transient\": {\r\n    \"plugins.ml_commons.model_access_control_enabled\": \"true\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/_cluster/settings",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"_cluster",
+						"settings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Model Group",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"dense_vector_model_group\",\r\n  \"description\": \"A model group for dense vector embeddings\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/_plugins/_ml/model_groups/_register",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"_plugins",
+						"_ml",
+						"model_groups",
+						"_register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Model Group",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"query\": {\r\n    \"match\": {\r\n      \"_id\": \"BPRC_I8BLuXZPFPY_Kea\"\r\n    }\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/_plugins/_ml/model_groups/_search",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"_plugins",
+						"_ml",
+						"model_groups",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Model To Model Group",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"huggingface/sentence-transformers/msmarco-distilbert-base-tas-b\",\r\n  \"version\": \"1.0.1\",\r\n  \"model_group_id\": \"BPRC_I8BLuXZPFPY_Kea\",\r\n  \"model_format\": \"TORCH_SCRIPT\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/_plugins/_ml/models/_register",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"_plugins",
+						"_ml",
+						"models",
+						"_register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Model Registration Task Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/_plugins/_ml/tasks/BfRH_I8BLuXZPFPYM6eu",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"_plugins",
+						"_ml",
+						"tasks",
+						"BfRH_I8BLuXZPFPYM6eu"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deploy Model",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/_plugins/_ml/models/BvRH_I8BLuXZPFPYQadN/_deploy",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"_plugins",
+						"_ml",
+						"models",
+						"BvRH_I8BLuXZPFPYQadN",
+						"_deploy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Model Deployment Task Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/_plugins/_ml/tasks/B_RK_I8BLuXZPFPYNqdu",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"_plugins",
+						"_ml",
+						"tasks",
+						"B_RK_I8BLuXZPFPYNqdu"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Ingest Pipeline",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"description\": \"msmarco-distilbert ingest pipeline\",\r\n  \"processors\": [\r\n    {\r\n      \"text_embedding\": {\r\n        \"model_id\": \"BvRH_I8BLuXZPFPYQadN\",\r\n        \"field_map\": {\r\n          \"text\": \"msmarco_distilbert_embedding\"\r\n        }\r\n      }\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/_ingest/pipeline/msmarco-distilbert-base-tas-b-ingest-pipeline",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"_ingest",
+						"pipeline",
+						"msmarco-distilbert-base-tas-b-ingest-pipeline"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Ingest Pipeline",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/_ingest/pipeline",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"_ingest",
+						"pipeline"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Index",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"settings\": {\r\n    \"index.knn\": true,\r\n    \"default_pipeline\": \"msmarco-distilbert-base-tas-b-ingest-pipeline\"\r\n  },\r\n  \"mappings\": {\r\n    \"properties\": {\r\n      \"id\": {\r\n        \"type\": \"text\"\r\n      },\r\n      \"msmarco_distilbert_embedding\": {\r\n        \"type\": \"knn_vector\",\r\n        \"dimension\": 768,\r\n        \"method\": {\r\n          \"engine\": \"lucene\",\r\n          \"space_type\": \"l2\",\r\n          \"name\": \"hnsw\",\r\n          \"parameters\": {}\r\n        }\r\n      },\r\n      \"text\": {\r\n        \"type\": \"text\"\r\n      }\r\n    }\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/my-nlp-index",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"my-nlp-index"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ingest Data",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get Data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/my-nlp-index/_doc/1",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"my-nlp-index",
+						"_doc",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "localhost:9200"
+		}
+	]
+}

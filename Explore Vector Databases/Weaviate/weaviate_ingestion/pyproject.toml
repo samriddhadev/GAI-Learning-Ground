@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "weaviate-ingestion"
+version = "0.1.0"
+description = ""
+authors = ["Samriddha Chatterjee <samriddhac@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.13"
+langchain = "^0.2.0"
+langchain-openai = "^0.1.7"
+langchain-community = "^0.2.0"
+python-dotenv = "^1.0.1"
+langchain-weaviate = "^0.0.2"
+openai = "^1.30.3"
+tiktoken = "^0.7.0"
+unstructured = "^0.14.2"
+pillow-heif = "^0.16.0"
+unstructured-inference = "^0.7.33"
+pytesseract = "^0.3.10"
+unstructured-pytesseract = "^0.3.12"
+pymupdf = "^1.24.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
